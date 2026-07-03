@@ -1,0 +1,30 @@
+dataset:
+  root: ../../../datasets/UMD/part-affordance-dataset
+  split_path: ../metadata/splits/category_split_seed42_v20_lowres_train4.json
+  geometry_manifest: ../metadata/splits/capped_metric3d_predictions.json
+  image_size: [240, 320]
+  num_classes: 8
+  ignore_index: 255
+  metric_ignore_indices: [0]
+
+model:
+  width: 16
+  fusion_mode: depth
+
+training:
+  batch_size: 4
+  num_workers: 0
+  max_epochs: 1
+  lr: 0.001
+  weight_decay: 0.0001
+  device: cuda
+  seed: 1337
+  smoke: true
+  benchmark_warmup: 3
+  benchmark_steps: 10
+  output_root: ../outputs/lightweight_student_smoke_depth
+  loss:
+    class_balance: true
+    class_balance_power: 0.5
+    max_class_weight: 8.0
+    background_weight: 0.05

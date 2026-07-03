@@ -1,0 +1,25 @@
+[build-system]
+requires = ["pip", "setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "probing-bridging-affordance"
+version = "0.1.0"
+description = "Public orchestration package for Probing & Bridging Affordance experiments."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+dependencies = [
+  "matplotlib>=3.7",
+  "numpy>=1.23",
+  "pillow>=9.0",
+  "pyyaml>=6.0",
+]
+
+[project.scripts]
+pba-run = "pba.run:main"
+pba-audit = "pba.audit:main"
+pba-reproduce = "pba.cli.reproduce:main"
+
+[tool.setuptools.packages.find]
+include = ["pba*"]

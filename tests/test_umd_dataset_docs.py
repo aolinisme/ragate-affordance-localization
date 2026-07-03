@@ -1,0 +1,30 @@
+from pathlib import Path
+
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_umd_dataset_contract_doc_exists_and_names_runtime_boundary() -> None:
+    text = (REPO_ROOT / "docs/umd_dataset_contract.md").read_text(encoding="utf-8")
+
+    for phrase in (
+        "UMD Dataset Migration Contract",
+        "pba.data.umd",
+        "UMD_SPLIT_RECORD_KEYS",
+        "UMD_SAMPLE_OUTPUT_KEYS",
+        "geom_depth",
+        "geom_normal",
+        "geometry_probing/umd_linear_probing/src/data/dataset.py",
+    ):
+        assert phrase in text
+
+
+def test_release_docs_link_umd_dataset_contract() -> None:
+    for path in (
+        REPO_ROOT / "README.md",
+        REPO_ROOT / "docs/public_api.md",
+        REPO_ROOT / "docs/release_extension_points.md",
+        REPO_ROOT / "docs/release_usage.md",
+    ):
+        text = path.read_text(encoding="utf-8")
+        assert "docs/umd_dataset_contract.md" in text

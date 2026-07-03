@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# Local environments
+.venv/
+venv/
+.env
+
+# Datasets, models, caches, and experiment artifacts
+datasets/*
+!datasets/README.md
+downloads/
+models/*
+!models/README.md
+outputs/
+outputs_*/
+cache/
+caches/
+tmp/
+probe_outputs/
+result/
+manuscripts/
+
+# Large model or array artifacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.onnx
+*.npy
+*.npz
+
+# Machine-specific configs and credentials
+config.local*.yaml
+!**/config.local.example.yaml
+*.local.yaml
+local.yaml
+local_seed_*.yaml
+*.token
+*.secret
+docs/superpowers/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,47 @@
+assets:
+  umd_root: datasets/UMD/part-affordance-dataset
+  agd20k_root: datasets/AGD20K/AGD20K/Unseen/testset
+  flux_model: models/FLUX.1-Kontext-dev
+  dinov2_source: models/dinov2
+  dinov3_source: models/dinov3
+  dino_source: models/dino
+  openclip_source: models/open_clip/src
+  dinov2_checkpoint: models/dinov2_vitb14_pretrain.pth
+  dinov3_checkpoint: models/dinov3_vit7b16_pretrain_lvd1689m.pth
+  dino_checkpoint: models/dino_vitbase16_pretrain.pth
+  sam_checkpoint: models/sam_vit_b_01ec64.pth
+
+outputs:
+  root: outputs/reproduce_main
+
+jobs:
+  geometry:
+    - name: dino
+      command: geometry-train
+      args: ["--config", "geometry_probing/umd_linear_probing/configs/dino.yaml"]
+    - name: dinov2
+      command: geometry-train
+      args: ["--config", "geometry_probing/umd_linear_probing/configs/dinov2.yaml"]
+    - name: dinov3
+      command: geometry-train
+      args: ["--config", "geometry_probing/umd_linear_probing/configs/dinov3.yaml"]
+    - name: clip
+      command: geometry-train
+      args: ["--config", "geometry_probing/umd_linear_probing/configs/clip.yaml"]
+    - name: siglip
+      command: geometry-train
+      args: ["--config", "geometry_probing/umd_linear_probing/configs/siglip.yaml"]
+    - name: sam
+      command: geometry-train
+      args: ["--config", "geometry_probing/umd_linear_probing/configs/sam.yaml"]
+    - name: sd21
+      command: geometry-train
+      args: ["--config", "geometry_probing/umd_linear_probing/configs/sd21.yaml"]
+  # Current GitHub source only exposes single-image interaction probing.
+  # Keep this empty until the real AGD20K batch interaction-only runner is
+  # confirmed from the development environment.
+  interaction: []
+  fusion:
+    - name: agd20k_dinov3_flux
+      command: fusion-eval
+      args: ["--config", "fusion_zero_shot/src/agd20k_eval/config.yaml"]

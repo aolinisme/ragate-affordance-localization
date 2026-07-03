@@ -1,0 +1,37 @@
+dataset:
+  root: ../../../datasets/UMD/part-affordance-dataset
+  split_path: ../metadata/splits/category_split_seed42_v20_lowres_train4.json
+  geometry_manifest: ../metadata/splits/capped_metric3d_predictions.json
+  image_size: [240, 320]
+  num_classes: 8
+  ignore_index: 255
+  metric_ignore_indices: [0]
+
+model:
+  width: 16
+  fusion_mode: depth_modulated_rgb
+
+training:
+  batch_size: 4
+  num_workers: 0
+  max_epochs: 20
+  lr: 0.001
+  weight_decay: 0.0001
+  device: cuda
+  seed: 1337
+  smoke: false
+  evidence_tier: pilot
+  benchmark_warmup: 5
+  benchmark_steps: 20
+  output_root: ../outputs/lightweight_student_pilot_depth_modulated_rgb_distill
+  loss:
+    class_balance: true
+    class_balance_power: 0.5
+    max_class_weight: 8.0
+    background_weight: 0.05
+  distillation:
+    enabled: true
+    teacher_manifest: ../metadata/teacher_logits/clip_lowres_train4_gate_seed1338/train_teacher_logits_manifest.json
+    weight: 0.5
+    temperature: 2.0
+    foreground_only: true
